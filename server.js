@@ -6,6 +6,7 @@ const http = require('http');
 const authRoutes = require('./routes/user.js'); 
 const taskRoutes = require('./routes/task.js');
 const cors = require('cors')
+const path = require('path');
 
 const router = express.Router();
 const app = express();
@@ -28,6 +29,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use("/api/", authRoutes);
 app.use("/api/user/", taskRoutes);
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 const server = http.createServer(app);
 server.listen(PORT, () => {
