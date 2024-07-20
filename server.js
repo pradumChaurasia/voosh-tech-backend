@@ -17,7 +17,7 @@ dotenv.config();
 connectDB();
 // app.use(cors())
 app.use(cors({
-    origin: 'http://localhost:3001', 
+    origin: '*', 
     credentials: true
 }));
 app.use(express.json());
@@ -30,11 +30,10 @@ const PORT = process.env.PORT || 3000;
 app.use("/api/", authRoutes);
 app.use("/api/user/", taskRoutes);
 
-app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+app.get('/', (req, res) => {
+  res.send("Hello app")
+})
 
 const server = http.createServer(app);
 server.listen(PORT, () => {
