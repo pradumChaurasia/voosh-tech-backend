@@ -27,16 +27,16 @@ const PORT = process.env.PORT || 3000;
 
 
 
-app.use("/api/", authRoutes);
-app.use("/api/user/", taskRoutes);
-
-
 app.get('/', (req, res) => {
   res.send("Hello app")
 })
 
-const server = http.createServer(app);
-server.listen(PORT, () => {
+app.use("/api/", authRoutes);
+app.use("/api/user/", taskRoutes);
+
+
+// const server = http.createServer(app);
+app.listen(PORT, () => {
   console.log(`Server is live on http://localhost:${PORT}`);
 });
 
